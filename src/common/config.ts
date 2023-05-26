@@ -7,6 +7,7 @@ export default registerAs('config', () => {
       name: process.env.DATABASE_NAME,
       port: process.env.DATABASE_PORT,
       user: process.env.DATABASE_USER,
+      pass: process.env.DATABASE_PASS,
     },
     allowCors: process.env.ALLOW_CORS,
     apiKey: process.env.API_KEY,

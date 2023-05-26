@@ -26,6 +26,7 @@ import config from './common/config';
         DATABASE_NAME: Joi.string().required(),
         DATABASE_PORT: Joi.number().required(),
         DATABASE_USER: Joi.string().required(),
+        DATABASE_PASS: Joi.string().required(),
         ALLOW_CORS: Joi.string().optional(),
       }),
     }),

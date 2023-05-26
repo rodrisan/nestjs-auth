@@ -37,3 +37,4 @@ lerna-debug.log*
 .env*
 !.env.example
 package-lock.json
+postgres_data
