@@ -5,7 +5,7 @@ export default registerAs('config', () => {
     database: {
       host: process.env.DATABASE_HOST,
       name: process.env.DATABASE_NAME,
-      port: process.env.DATABASE_PORT,
+      port: parseInt(process.env.DATABASE_PORT),
       user: process.env.DATABASE_USER,
       pass: process.env.DATABASE_PASS,
     },
