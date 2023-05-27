@@ -8,7 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 @Injectable()
 export class CategoriesService {
   constructor(
-    @InjectRepository(Category)
+    @InjectRepository(Category, 'mysqlDB')
     private _categoryRepository: Repository<Category>,
   ) {}
 

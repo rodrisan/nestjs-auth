@@ -14,7 +14,7 @@ import { Brand } from './entities/brand.entity';
 @Module({
   controllers: [ProductsController, CategoriesController, BrandsController],
   exports: [ProductService, CategoriesService, BrandsService],
-  imports: [TypeOrmModule.forFeature([Product, Category, Brand])],
+  imports: [TypeOrmModule.forFeature([Product, Category, Brand], 'mysqlDB')],
   providers: [ProductService, BrandsService, CategoriesService],
 })
 export class ProductsModule {}

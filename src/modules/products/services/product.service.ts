@@ -11,7 +11,8 @@ import {
 @Injectable()
 export class ProductService {
   constructor(
-    @InjectRepository(Product) private _productRepository: Repository<Product>,
+    @InjectRepository(Product, 'mysqlDB')
+    private _productRepository: Repository<Product>,
   ) {}
 
   findAll() {

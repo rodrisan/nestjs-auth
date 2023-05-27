@@ -26,20 +26,38 @@ client.connect();
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
-      inject: [config.KEY],
       useFactory: (configService: ConfigType<typeof config>) => {
-        const { user, host, name, pass, port } = configService.database;
+        const { dbName, dbUser, dbPass, dbHost, dbPort } =
+          configService.postgres;
         return {
           type: 'postgres',
-          host,
-          username: user,
-          database: name,
-          password: pass,
-          port,
+          host: dbHost,
+          port: dbPort,
+          username: dbUser,
+          password: dbPass,
+          database: dbName,
           synchronize: true,
           autoLoadEntities: true,
         };
       },
+      inject: [config.KEY],
+    }),
+    TypeOrmModule.forRootAsync({
+      name: 'mysqlDB',
+      useFactory: (configService: ConfigType<typeof config>) => {
+        const { dbName, dbUser, dbPass, dbHost, dbPort } = configService.mysql;
+        return {
+          type: 'mysql',
+          host: dbHost,
+          port: dbPort,
+          username: dbUser,
+          password: dbPass,
+          database: dbName,
+          synchronize: true,
+          autoLoadEntities: true,
+        };
+      },
+      inject: [config.KEY],
     }),
   ],
   providers: [
@@ -50,13 +68,14 @@ client.connect();
     {
       provide: 'PG',
       useFactory: (configService: ConfigType<typeof config>) => {
-        const { user, host, name, pass, port } = configService.database;
+        const { dbUser, dbHost, dbName, dbPass, dbPort } =
+          configService.postgres;
         const client = new Client({
-          user,
-          host,
-          database: name,
-          password: pass,
-          port,
+          user: dbUser,
+          host: dbHost,
+          database: dbName,
+          password: dbPass,
+          port: dbPort,
         });
         client.connect();
         return client;
