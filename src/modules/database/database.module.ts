@@ -36,6 +36,8 @@ client.connect();
           database: name,
           password: pass,
           port,
+          synchronize: true,
+          autoLoadEntities: true,
         };
       },
     }),
