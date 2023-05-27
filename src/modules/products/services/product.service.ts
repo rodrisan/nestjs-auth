@@ -18,54 +18,42 @@ export class ProductService {
     return this._productRepository.find();
   }
 
-  findOne(id: number) {
-    const product = this._productRepository.findOneBy({ id });
+  async findOne(id: number) {
+    const product = await this._productRepository.findOneBy({ id });
     if (!product) {
       throw new NotFoundException(`Product #${id} not found`);
     }
     return product;
   }
 
-  // create(payload: CreateProductDto) {
-  //   this.counter += 1;
-  //   const newProduct = {
-  //     id: this.counter,
-  //     ...payload,
-  //   };
-  //   this.products.push(newProduct);
-  //   return newProduct;
-  // }
+  create(data: CreateProductDto) {
+    // Using Active Record.
+    // const newProduct = new Product();
+    // newProduct.description = payload.description;
+    // newProduct.image = payload.image;
+    // newProduct.name = payload.name;
+    // newProduct.price = payload.price;
+    // newProduct.stock = payload.stock;
 
-  // update(id: number, payload: UpdateProductDto) {
-  //   // const productIndex = this.products.findIndex((item) => item.id === id);
-  //   // if (productIndex === -1) throw new Error('Not found');
-  //   // this.products[productIndex] = {
-  //   //   id: id,
-  //   //   ...payload,
-  //   // };
-  //   // return {
-  //   //   data: this.products[productIndex],
-  //   //   message: 'Product updated succesfully',
-  //   // };
+    // Using Repository Patter.
+    const newProduct = this._productRepository.create(data);
+    return this._productRepository.save(newProduct);
+  }
 
-  //   const product = this.findOne(id);
-  //   if (product) {
-  //     const index = this.products.findIndex((item) => item.id === id);
-  //     this.products[index] = {
-  //       ...product,
-  //       ...payload,
-  //     };
-  //     return this.products[index];
-  //   }
-  //   return null;
-  // }
+  async update(id: number, changes: UpdateProductDto) {
+    const product = await this._productRepository.findOneBy({ id });
+    if (!product) {
+      throw new NotFoundException(`Product id #${id} does not exists`);
+    }
+    this._productRepository.merge(product, changes);
+    return this._productRepository.save(product);
+  }
 
-  // remove(id: number) {
-  //   const index = this.products.findIndex((item) => item.id === id);
-  //   if (index === -1) {
-  //     throw new NotFoundException(`Product #${id} not found`);
-  //   }
-  //   this.products.splice(index, 1);
-  //   return true;
-  // }
+  async remove(id: number) {
+    const product = await this._productRepository.findOneBy({ id });
+    if (!product) {
+      throw new NotFoundException(`Product id #${id} does not exists`);
+    }
+    return this._productRepository.delete(id);
+  }
 }

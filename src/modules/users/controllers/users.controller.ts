@@ -24,10 +24,10 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Get('tasks')
-  tasks() {
-    return this.usersService.getTasks();
-  }
+  // @Get('tasks')
+  // tasks() {
+  //   return this.usersService.getTasks();
+  // }
 
   @ApiOperation({ summary: 'Get a User by ID' })
   @Get(':id')
@@ -35,11 +35,11 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
-  @ApiOperation({ summary: 'Get all the Orders by a User' })
-  @Get(':id/orders')
-  getOrders(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.getOrdersByUser(id);
-  }
+  // @ApiOperation({ summary: 'Get all the Orders by a User' })
+  // @Get(':id/orders')
+  // getOrders(@Param('id', ParseIntPipe) id: number) {
+  //   return this.usersService.getOrdersByUser(id);
+  // }
 
   @ApiOperation({ summary: 'Create a new User' })
   @Post()

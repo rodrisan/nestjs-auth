@@ -15,20 +15,24 @@ export class CreateProductDto {
 
   @IsNotEmpty()
   @IsString()
+  @ApiProperty()
   readonly description: string;
 
   @IsNotEmpty()
   @IsNumber()
   @IsPositive()
+  @ApiProperty()
   readonly price: number;
 
   @IsNotEmpty()
   @IsNumber()
   @IsPositive()
+  @ApiProperty()
   readonly stock: number;
 
   @IsNotEmpty()
   @IsUrl({ require_protocol: true })
+  @ApiProperty()
   readonly image: string;
 }
 
