@@ -11,7 +11,7 @@ import {
 @Injectable()
 export class ProductService {
   constructor(
-    @InjectRepository(Product, 'mysqlDB')
+    @InjectRepository(Product) // In order to use MySQL, pass the second param 'mysqlDB'.
     private _productRepository: Repository<Product>,
   ) {}
 

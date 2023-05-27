@@ -8,7 +8,7 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class BrandsService {
   constructor(
-    @InjectRepository(Brand, 'mysqlDB')
+    @InjectRepository(Brand) // In order to use MySQL, pass the second param 'mysqlDB'.
     private _brandRepository: Repository<Brand>,
   ) {}
 
