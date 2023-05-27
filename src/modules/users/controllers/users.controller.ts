@@ -35,11 +35,11 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
-  // @ApiOperation({ summary: 'Get all the Orders by a User' })
-  // @Get(':id/orders')
-  // getOrders(@Param('id', ParseIntPipe) id: number) {
-  //   return this.usersService.getOrdersByUser(id);
-  // }
+  @ApiOperation({ summary: 'Get all the Orders by a User' })
+  @Get(':id/orders')
+  getOrders(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.getOrdersByUser(id);
+  }
 
   @ApiOperation({ summary: 'Create a new User' })
   @Post()
