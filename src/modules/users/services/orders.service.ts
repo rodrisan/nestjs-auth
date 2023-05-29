@@ -6,6 +6,7 @@ import { Order } from './../entities/order.entity';
 import { Customer } from './../entities/customer.entity';
 import { CreateOrderDto, UpdateOrderDto } from './../dtos/order.dto';
 import { RootEntity } from 'src/common/root-entity';
+import { GeneralFilterDto } from '../../../common/dtos/general-filter.dto';
 
 @Injectable()
 export class OrdersService {
@@ -15,8 +16,12 @@ export class OrdersService {
     private _customerRepository: Repository<Customer>,
   ) {}
 
-  findAll() {
-    return this._orderRepository.find();
+  findAll(filters?: GeneralFilterDto) {
+    const { limit, offset } = filters;
+    return this._orderRepository.find({
+      take: limit,
+      skip: offset,
+    });
   }
 
   async findOne(id: RootEntity['id']) {

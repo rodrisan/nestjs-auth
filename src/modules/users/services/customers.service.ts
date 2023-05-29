@@ -5,6 +5,7 @@ import { CreateCustomerDto, UpdateCustomerDto } from '../dtos/customer.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RootEntity } from './../../../common/root-entity';
+import { GeneralFilterDto } from '../../../common/dtos/general-filter.dto';
 
 @Injectable()
 export class CustomersService {
@@ -13,8 +14,12 @@ export class CustomersService {
     private _customerRepository: Repository<Customer>,
   ) {}
 
-  findAll() {
-    return this._customerRepository.find();
+  findAll(filters?: GeneralFilterDto) {
+    const { limit, offset } = filters;
+    return this._customerRepository.find({
+      take: limit,
+      skip: offset,
+    });
   }
 
   async findOne(id: RootEntity['id']) {

@@ -8,6 +8,7 @@ import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
 import { ProductService } from 'src/modules/products/services/product.service';
 import { CustomersService } from './customers.service';
 import { RootEntity } from './../../../common/root-entity';
+import { GeneralFilterDto } from '../../../common/dtos/general-filter.dto';
 
 @Injectable()
 export class UsersService {
@@ -18,8 +19,13 @@ export class UsersService {
     private _customerService: CustomersService,
   ) {}
 
-  findAll() {
-    return this._userRepository.find({ relations: ['customer'] });
+  findAll(filters?: GeneralFilterDto) {
+    const { limit, offset } = filters;
+    return this._userRepository.find({
+      relations: ['customer'],
+      take: limit,
+      skip: offset,
+    });
   }
 
   async findOne(id: RootEntity['id']) {

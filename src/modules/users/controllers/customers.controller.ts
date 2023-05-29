@@ -7,12 +7,14 @@ import {
   Put,
   Delete,
   ParseUUIDPipe,
+  Query,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 import { CustomersService } from '../services/customers.service';
 import { CreateCustomerDto, UpdateCustomerDto } from '../dtos/customer.dto';
 import { RootEntity } from './../../../common/root-entity';
+import { GeneralFilterDto } from '../../../common/dtos/general-filter.dto';
 
 ApiTags('Customers');
 @Controller('customers')
@@ -21,8 +23,9 @@ export class CustomersController {
 
   @ApiOperation({ summary: 'Get all Customers' })
   @Get()
-  findAll() {
-    return this.customersService.findAll();
+  @Get()
+  findAll(@Query() params: GeneralFilterDto) {
+    return this.customersService.findAll(params);
   }
 
   @ApiOperation({ summary: 'Get a Customer by ID' })

@@ -7,12 +7,14 @@ import {
   Put,
   Delete,
   ParseUUIDPipe,
+  Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { CategoriesService } from '../services/categories.service';
 import { CreateCategoryDto, UpdateCategoryDto } from './../dtos/category.dto';
 import { RootEntity } from './../../../common/root-entity';
+import { GeneralFilterDto } from '../../../common/dtos/general-filter.dto';
 
 @ApiTags('Categories')
 @Controller('categories')
@@ -21,8 +23,8 @@ export class CategoriesController {
 
   @ApiOperation({ summary: 'Get all Categories' })
   @Get()
-  findAll() {
-    return this.categoriesService.findAll();
+  findAll(@Query() params: GeneralFilterDto) {
+    return this.categoriesService.findAll(params);
   }
 
   @ApiOperation({ summary: 'Get a Category by ID' })

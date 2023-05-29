@@ -7,12 +7,14 @@ import {
   Put,
   Delete,
   ParseUUIDPipe,
+  Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { BrandsService } from '../services/brands.service';
 import { CreateBrandDto, UpdateBrandDto } from '../dtos/brand.dto';
 import { RootEntity } from './../../../common/root-entity';
+import { GeneralFilterDto } from '../../../common/dtos/general-filter.dto';
 
 @ApiTags('Brands')
 @Controller('brands')
@@ -21,8 +23,8 @@ export class BrandsController {
 
   @ApiOperation({ summary: 'Get all Brands' })
   @Get()
-  findAll() {
-    return this.brandsService.findAll();
+  findAll(@Query() params: GeneralFilterDto) {
+    return this.brandsService.findAll(params);
   }
 
   @ApiOperation({ summary: 'Get a Brand by ID' })

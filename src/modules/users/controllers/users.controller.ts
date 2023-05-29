@@ -7,12 +7,14 @@ import {
   Put,
   Delete,
   ParseUUIDPipe,
+  Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { UsersService } from '../services/users.service';
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
 import { RootEntity } from './../../../common/root-entity';
+import { GeneralFilterDto } from '../../../common/dtos/general-filter.dto';
 
 ApiTags('Users');
 @Controller('users')
@@ -21,8 +23,8 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Get all Users' })
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  findAll(@Query() params: GeneralFilterDto) {
+    return this.usersService.findAll(params);
   }
 
   // @Get('tasks')

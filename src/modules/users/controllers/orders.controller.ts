@@ -7,19 +7,21 @@ import {
   Put,
   Delete,
   ParseUUIDPipe,
+  Query,
 } from '@nestjs/common';
 
 import { OrdersService } from './../services/orders.service';
 import { CreateOrderDto, UpdateOrderDto } from './../dtos/order.dto';
 import { RootEntity } from 'src/common/root-entity';
+import { GeneralFilterDto } from '../../../common/dtos/general-filter.dto';
 
 @Controller('orders')
 export class OrdersController {
   constructor(private orderService: OrdersService) {}
 
   @Get()
-  findAll() {
-    return this.orderService.findAll();
+  findAll(@Query() params: GeneralFilterDto) {
+    return this.orderService.findAll(params);
   }
 
   @Get(':id')

@@ -5,6 +5,7 @@ import { CreateCategoryDto, UpdateCategoryDto } from '../dtos/category.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RootEntity } from './../../../common/root-entity';
+import { GeneralFilterDto } from '../../../common/dtos/general-filter.dto';
 
 @Injectable()
 export class CategoriesService {
@@ -13,8 +14,12 @@ export class CategoriesService {
     private _categoryRepository: Repository<Category>,
   ) {}
 
-  findAll() {
-    return this._categoryRepository.find();
+  findAll(filters?: GeneralFilterDto) {
+    const { limit, offset } = filters;
+    return this._categoryRepository.find({
+      take: limit,
+      skip: offset,
+    });
   }
 
   async findOne(id: RootEntity['id']) {

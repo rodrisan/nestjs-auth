@@ -5,6 +5,7 @@ import { CreateBrandDto, UpdateBrandDto } from '../dtos/brand.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { RootEntity } from './../../../common/root-entity';
+import { GeneralFilterDto } from '../../../common/dtos/general-filter.dto';
 
 @Injectable()
 export class BrandsService {
@@ -13,8 +14,12 @@ export class BrandsService {
     private _brandRepository: Repository<Brand>,
   ) {}
 
-  findAll() {
-    return this._brandRepository.find();
+  findAll(filters?: GeneralFilterDto) {
+    const { limit, offset } = filters;
+    return this._brandRepository.find({
+      take: limit,
+      skip: offset,
+    });
   }
 
   async findOne(id: RootEntity['id']) {
