@@ -18,6 +18,7 @@ import { ProductService } from 'src/modules/products/services/product.service';
 import {
   CreateProductDto,
   UpdateProductDto,
+  FilterProductsDto,
 } from 'src/modules/products/dtos/product.dto';
 import { RootEntity } from './../../../common/root-entity';
 
@@ -42,12 +43,8 @@ export class ProductsController {
 
   @ApiOperation({ summary: 'List of Products' })
   @Get()
-  get(
-    @Query('limit') limit = 100,
-    @Query('offset') offset = 0,
-    @Query('brand') brand: string,
-  ) {
-    return this._productService.findAll();
+  get(@Query() params: FilterProductsDto, @Query('brand') brand: string) {
+    return this._productService.findAll(params);
   }
 
   @ApiOperation({ summary: 'Create a new Product' })

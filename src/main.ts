@@ -11,6 +11,9 @@ async function bootstrap() {
       whitelist: true,
       forbidNonWhitelisted: true,
       disableErrorMessages: false, // Disable error messages in production.
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
     }),
   );
 
