@@ -6,12 +6,15 @@ import {
   Body,
   Put,
   Delete,
-  ParseIntPipe,
+  ParseUUIDPipe,
+  Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { BrandsService } from '../services/brands.service';
 import { CreateBrandDto, UpdateBrandDto } from '../dtos/brand.dto';
+import { RootEntity } from './../../../common/root-entity';
+import { GeneralFilterDto } from '../../../common/dtos/general-filter.dto';
 
 @ApiTags('Brands')
 @Controller('brands')
@@ -20,13 +23,13 @@ export class BrandsController {
 
   @ApiOperation({ summary: 'Get all Brands' })
   @Get()
-  findAll() {
-    return this.brandsService.findAll();
+  findAll(@Query() params: GeneralFilterDto) {
+    return this.brandsService.findAll(params);
   }
 
   @ApiOperation({ summary: 'Get a Brand by ID' })
   @Get(':id')
-  get(@Param('id', ParseIntPipe) id: number) {
+  get(@Param('id', ParseUUIDPipe) id: RootEntity['id']) {
     return this.brandsService.findOne(id);
   }
 
@@ -39,7 +42,7 @@ export class BrandsController {
   @ApiOperation({ summary: 'Update an existing Brand' })
   @Put(':id')
   update(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseUUIDPipe) id: RootEntity['id'],
     @Body() payload: UpdateBrandDto,
   ) {
     return this.brandsService.update(id, payload);
@@ -47,7 +50,7 @@ export class BrandsController {
 
   @ApiOperation({ summary: 'Delete an existing Brand' })
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.brandsService.remove(+id);
+  remove(@Param('id', ParseUUIDPipe) id: RootEntity['id']) {
+    return this.brandsService.remove(id);
   }
 }

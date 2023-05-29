@@ -8,7 +8,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './modules/users/users.module';
 import { ProductsModule } from './modules/products/products.module';
 import { OrdersModule } from './modules/orders/orders.module';
-import { todosApi } from 'src/common/constants';
+import { todosApi } from './common/constants';
 import { lastValueFrom } from 'rxjs';
 import { DatabaseModule } from './modules/database/database.module';
 import { environments } from './common/environments';
@@ -22,10 +22,16 @@ import config from './common/config';
       isGlobal: true,
       validationSchema: Joi.object({
         API_KEY: Joi.number().required(),
-        DATABASE_HOST: Joi.string().required(),
-        DATABASE_NAME: Joi.string().required(),
-        DATABASE_PORT: Joi.number().required(),
-        DATABASE_USER: Joi.string().required(),
+        MYSQL_HOST: Joi.string().required(),
+        MYSQL_DB_NAME: Joi.string().required(),
+        MYSQL_PORT: Joi.number().required(),
+        MYSQL_USER: Joi.string().required(),
+        MYSQL_PASS: Joi.string().required(),
+        POSTGRES_HOST: Joi.string().required(),
+        POSTGRES_DB_NAME: Joi.string().required(),
+        POSTGRES_PORT: Joi.number().required(),
+        POSTGRES_USER: Joi.string().required(),
+        POSTGRES_PASS: Joi.string().required(),
         ALLOW_CORS: Joi.string().optional(),
       }),
     }),
