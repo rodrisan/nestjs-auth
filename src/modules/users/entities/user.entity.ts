@@ -1,15 +1,20 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 
 import { RootEntity } from '../../../common/root-entity';
+import { Customer } from './customer.entity';
 
 @Entity({ name: 'users' })
 export class User extends RootEntity {
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', length: 255 })
   email: string;
 
-  @Column({ type: 'varchar' })
-  password: string;
+  @Column({ type: 'varchar', length: 255 })
+  password: string; // @todo: Should be encrypted.
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', length: 255 })
   role: string;
+
+  @OneToOne(() => Customer, (customer) => customer.user, { nullable: true })
+  @JoinColumn() // Should be defined on one side only.
+  customer: Customer;
 }
