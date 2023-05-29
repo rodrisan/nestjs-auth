@@ -8,7 +8,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './modules/users/users.module';
 import { ProductsModule } from './modules/products/products.module';
 import { OrdersModule } from './modules/orders/orders.module';
-import { todosApi } from 'src/common/constants';
+import { todosApi } from './common/constants';
 import { lastValueFrom } from 'rxjs';
 import { DatabaseModule } from './modules/database/database.module';
 import { environments } from './common/environments';

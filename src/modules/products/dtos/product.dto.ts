@@ -9,8 +9,7 @@ import {
   IsUrl,
 } from 'class-validator';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { RootEntity } from 'src/common/root-entity';
-import { UUID } from 'crypto';
+import { RootEntity } from './../../../common/root-entity';
 
 export class CreateProductDto {
   @IsNotEmpty()
