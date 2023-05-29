@@ -4,11 +4,13 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 
 export abstract class RootEntity {
   @PrimaryGeneratedColumn('uuid')
   id: UUID;
 
+  @Exclude()
   @CreateDateColumn({
     type: 'timestamptz',
     name: 'created_at',
@@ -16,6 +18,7 @@ export abstract class RootEntity {
   })
   createAt: Date;
 
+  @Exclude()
   @UpdateDateColumn({
     type: 'timestamptz',
     name: 'updated_at',
