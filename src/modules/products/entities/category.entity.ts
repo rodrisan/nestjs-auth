@@ -1,7 +1,9 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
+import { RootEntity } from '../../../common/root-entity';
+
 @Entity({ name: 'categories' })
-export class Category {
+export class Category extends RootEntity {
   @PrimaryGeneratedColumn()
   id: number;
 

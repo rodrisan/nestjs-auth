@@ -1,16 +1,10 @@
-import { CreateDateColumn } from 'typeorm';
 import { Product } from '../../products/entities/product.entity';
 import { User } from './user.entity';
+import { RootEntity } from '../../../common/root-entity';
 
-export class Order {
+export class Order extends RootEntity {
   date: Date;
 
   user: User;
   products: Product[];
-
-  @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
-
-  @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
-  updatedAt: Date;
 }

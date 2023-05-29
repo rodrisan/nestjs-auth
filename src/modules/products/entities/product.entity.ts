@@ -1,13 +1,9 @@
-import {
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+
+import { RootEntity } from '../../../common/root-entity';
 
 @Entity({ name: 'products' })
-export class Product {
+export class Product extends RootEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -25,10 +21,4 @@ export class Product {
 
   @Column({ type: 'varchar' })
   image: string;
-
-  @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
-
-  @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
-  updatedAt: Date;
 }
