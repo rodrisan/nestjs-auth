@@ -18,7 +18,10 @@ export class CategoriesService {
   }
 
   async findOne(id: RootEntity['id']) {
-    const category = await this._categoryRepository.findOneBy({ id });
+    const category = await this._categoryRepository.findOne({
+      where: { id },
+      relations: ['products'],
+    });
     if (!category) {
       throw new NotFoundException(`Category #${id} not found`);
     }

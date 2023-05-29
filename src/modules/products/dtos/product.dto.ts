@@ -1,4 +1,6 @@
 import {
+  ArrayNotEmpty,
+  IsArray,
   IsNotEmpty,
   IsNumber,
   IsPositive,
@@ -8,6 +10,7 @@ import {
 } from 'class-validator';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { RootEntity } from 'src/common/root-entity';
+import { UUID } from 'crypto';
 
 export class CreateProductDto {
   @IsNotEmpty()
@@ -41,6 +44,11 @@ export class CreateProductDto {
   @ApiProperty()
   @IsUUID()
   readonly brand_id: RootEntity['id'];
+
+  @ApiProperty()
+  @IsArray()
+  @ArrayNotEmpty()
+  readonly categories_ids: string[];
 }
 
 export class UpdateProductDto extends PartialType(CreateProductDto) {}
