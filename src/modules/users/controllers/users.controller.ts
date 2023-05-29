@@ -32,13 +32,13 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Get a User by ID' })
   @Get(':id')
-  get(@Param('id', ParseIntPipe) id: RootEntity['id']) {
+  get(@Param('id') id: RootEntity['id']) {
     return this.usersService.findOne(id);
   }
 
   @ApiOperation({ summary: 'Get all the Orders by a User' })
   @Get(':id/orders')
-  getOrders(@Param('id', ParseIntPipe) id: RootEntity['id']) {
+  getOrders(@Param('id') id: RootEntity['id']) {
     return this.usersService.getOrdersByUser(id);
   }
 
