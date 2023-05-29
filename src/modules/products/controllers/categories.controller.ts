@@ -12,6 +12,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { CategoriesService } from '../services/categories.service';
 import { CreateCategoryDto, UpdateCategoryDto } from './../dtos/category.dto';
+import { RootEntity } from './../../../common/root-entity';
 
 @ApiTags('Categories')
 @Controller('categories')
@@ -26,7 +27,7 @@ export class CategoriesController {
 
   @ApiOperation({ summary: 'Get a Category by ID' })
   @Get(':id')
-  get(@Param('id', ParseIntPipe) id: number) {
+  get(@Param('id', ParseIntPipe) id: RootEntity['id']) {
     return this.categoriesService.findOne(id);
   }
 
@@ -39,7 +40,7 @@ export class CategoriesController {
   @ApiOperation({ summary: 'Update an existing Category' })
   @Put(':id')
   update(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseIntPipe) id: RootEntity['id'],
     @Body() payload: UpdateCategoryDto,
   ) {
     return this.categoriesService.update(id, payload);
@@ -47,7 +48,7 @@ export class CategoriesController {
 
   @ApiOperation({ summary: 'Delete an existing Category' })
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.categoriesService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: RootEntity['id']) {
+    return this.categoriesService.remove(id);
   }
 }

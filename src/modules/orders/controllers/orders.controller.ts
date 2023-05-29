@@ -8,6 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { RootEntity } from './../../../common/root-entity';
 
 ApiTags('Orders');
 @Controller('orders')
@@ -20,7 +21,7 @@ export class OrdersController {
 
   @ApiOperation({ summary: 'Get a Order by ID' })
   @Get()
-  getOne(@Param('id') id: number) {
+  getOne(@Param('id') id: RootEntity['id']) {
     return { message: `Get one ${id}` };
   }
 
@@ -32,13 +33,13 @@ export class OrdersController {
 
   @ApiOperation({ summary: 'Update an existing Order' })
   @Put(':id')
-  update(@Param('id') id: number, @Body() payload: any) {
+  update(@Param('id') id: RootEntity['id'], @Body() payload: any) {
     return { message: 'update action', id, payload };
   }
 
   @ApiOperation({ summary: 'Delete an existing Order' })
   @Delete(':id')
-  delete(@Param('id') id: number) {
+  delete(@Param('id') id: RootEntity['id']) {
     return { message: 'delete action', id };
   }
 }

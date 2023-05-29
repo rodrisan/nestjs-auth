@@ -12,6 +12,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { UsersService } from '../services/users.service';
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
+import { RootEntity } from './../../../common/root-entity';
 
 ApiTags('Users');
 @Controller('users')
@@ -31,13 +32,13 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Get a User by ID' })
   @Get(':id')
-  get(@Param('id', ParseIntPipe) id: number) {
+  get(@Param('id', ParseIntPipe) id: RootEntity['id']) {
     return this.usersService.findOne(id);
   }
 
   @ApiOperation({ summary: 'Get all the Orders by a User' })
   @Get(':id/orders')
-  getOrders(@Param('id', ParseIntPipe) id: number) {
+  getOrders(@Param('id', ParseIntPipe) id: RootEntity['id']) {
     return this.usersService.getOrdersByUser(id);
   }
 
@@ -50,7 +51,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Update an existing Customer' })
   @Put(':id')
   update(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseIntPipe) id: RootEntity['id'],
     @Body() payload: UpdateUserDto,
   ) {
     return this.usersService.update(id, payload);
@@ -58,7 +59,7 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Delete an existing Customer' })
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: RootEntity['id']) {
+    return this.usersService.remove(id);
   }
 }

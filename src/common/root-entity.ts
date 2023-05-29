@@ -1,3 +1,4 @@
+import { UUID } from 'crypto';
 import {
   CreateDateColumn,
   PrimaryGeneratedColumn,
@@ -6,7 +7,7 @@ import {
 
 export abstract class RootEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: UUID;
 
   @CreateDateColumn({
     type: 'timestamptz',

@@ -18,6 +18,7 @@ import {
   CreateProductDto,
   UpdateProductDto,
 } from 'src/modules/products/dtos/product.dto';
+import { RootEntity } from './../../../common/root-entity';
 
 @ApiTags('Products')
 @Controller('products')
@@ -33,9 +34,9 @@ export class ProductsController {
   @ApiOperation({ summary: 'Get a Product' })
   @Get(':id')
   @HttpCode(HttpStatus.ACCEPTED)
-  getOne(@Param('id', ParseIntPipe) id: number) {
+  getOne(@Param('id', ParseIntPipe) id: RootEntity['id']) {
     // response.status(200).send({ message: `Product ${id}` });
-    return this._productService.findOne(+id);
+    return this._productService.findOne(id);
   }
 
   @ApiOperation({ summary: 'List of Products' })
@@ -57,7 +58,7 @@ export class ProductsController {
   @ApiOperation({ summary: 'Delete an existing Product' })
   @Put(':id')
   update(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseIntPipe) id: RootEntity['id'],
     @Body() payload: UpdateProductDto,
   ) {
     return this._productService.update(id, payload);
@@ -65,7 +66,7 @@ export class ProductsController {
 
   @ApiOperation({ summary: 'Delete an existing Product' })
   @Delete(':id')
-  delete(@Param('id', ParseIntPipe) id: number) {
-    return this._productService.remove(+id);
+  delete(@Param('id', ParseIntPipe) id: RootEntity['id']) {
+    return this._productService.remove(id);
   }
 }

@@ -7,6 +7,7 @@ import {
   CreateProductDto,
   UpdateProductDto,
 } from 'src/modules/products/dtos/product.dto';
+import { RootEntity } from './../../../common/root-entity';
 
 @Injectable()
 export class ProductService {
@@ -19,7 +20,7 @@ export class ProductService {
     return this._productRepository.find();
   }
 
-  async findOne(id: number) {
+  async findOne(id: RootEntity['id']) {
     const product = await this._productRepository.findOneBy({ id });
     if (!product) {
       throw new NotFoundException(`Product #${id} not found`);
@@ -41,7 +42,7 @@ export class ProductService {
     return this._productRepository.save(newProduct);
   }
 
-  async update(id: number, changes: UpdateProductDto) {
+  async update(id: RootEntity['id'], changes: UpdateProductDto) {
     const product = await this._productRepository.findOneBy({ id });
     if (!product) {
       throw new NotFoundException(`Product id #${id} does not exists`);
@@ -50,7 +51,7 @@ export class ProductService {
     return this._productRepository.save(product);
   }
 
-  async remove(id: number) {
+  async remove(id: RootEntity['id']) {
     const product = await this._productRepository.findOneBy({ id });
     if (!product) {
       throw new NotFoundException(`Product id #${id} does not exists`);

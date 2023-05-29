@@ -4,6 +4,7 @@ import { Brand } from '../entities/brand.entity';
 import { CreateBrandDto, UpdateBrandDto } from '../dtos/brand.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { RootEntity } from './../../../common/root-entity';
 
 @Injectable()
 export class BrandsService {
@@ -16,7 +17,7 @@ export class BrandsService {
     return this._brandRepository.find();
   }
 
-  async findOne(id: number) {
+  async findOne(id: RootEntity['id']) {
     const category = await this._brandRepository.findOneBy({ id });
     if (!category) {
       throw new NotFoundException(`Category #${id} not found`);
@@ -29,7 +30,7 @@ export class BrandsService {
     return this._brandRepository.save(newCategory);
   }
 
-  async update(id: number, changes: UpdateBrandDto) {
+  async update(id: RootEntity['id'], changes: UpdateBrandDto) {
     const category = await this._brandRepository.findOneBy({ id });
     if (!category) {
       throw new NotFoundException(`Category id #${id} does not exists`);
@@ -38,7 +39,7 @@ export class BrandsService {
     return this._brandRepository.save(category);
   }
 
-  async remove(id: number) {
+  async remove(id: RootEntity['id']) {
     const category = await this._brandRepository.findOneBy({ id });
     if (!category) {
       throw new NotFoundException(`Category id #${id} does not exists`);

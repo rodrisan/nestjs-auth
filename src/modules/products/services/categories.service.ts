@@ -4,6 +4,7 @@ import { Category } from '../entities/category.entity';
 import { CreateCategoryDto, UpdateCategoryDto } from '../dtos/category.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { RootEntity } from './../../../common/root-entity';
 
 @Injectable()
 export class CategoriesService {
@@ -16,7 +17,7 @@ export class CategoriesService {
     return this._categoryRepository.find();
   }
 
-  async findOne(id: number) {
+  async findOne(id: RootEntity['id']) {
     const category = await this._categoryRepository.findOneBy({ id });
     if (!category) {
       throw new NotFoundException(`Category #${id} not found`);
@@ -29,7 +30,7 @@ export class CategoriesService {
     return this._categoryRepository.save(newCategory);
   }
 
-  async update(id: number, changes: UpdateCategoryDto) {
+  async update(id: RootEntity['id'], changes: UpdateCategoryDto) {
     const category = await this._categoryRepository.findOneBy({ id });
     if (!category) {
       throw new NotFoundException(`Category id #${id} does not exists`);
@@ -38,7 +39,7 @@ export class CategoriesService {
     return this._categoryRepository.save(category);
   }
 
-  async remove(id: number) {
+  async remove(id: RootEntity['id']) {
     const category = await this._categoryRepository.findOneBy({ id });
     if (!category) {
       throw new NotFoundException(`Category id #${id} does not exists`);
