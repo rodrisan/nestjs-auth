@@ -3,9 +3,11 @@ import {
   IsNumber,
   IsPositive,
   IsString,
+  IsUUID,
   IsUrl,
 } from 'class-validator';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { RootEntity } from 'src/common/root-entity';
 
 export class CreateProductDto {
   @IsNotEmpty()
@@ -34,6 +36,11 @@ export class CreateProductDto {
   @IsUrl({ require_protocol: true })
   @ApiProperty()
   readonly image: string;
+
+  @IsNotEmpty()
+  @ApiProperty()
+  @IsUUID()
+  readonly brand_id: RootEntity['id'];
 }
 
 export class UpdateProductDto extends PartialType(CreateProductDto) {}

@@ -18,14 +18,26 @@ export class BrandsService {
   }
 
   async findOne(id: RootEntity['id']) {
-    const category = await this._brandRepository.findOneBy({ id });
+    const category = await this._brandRepository.findOne({
+      where: { id },
+      relations: ['products'],
+    });
     if (!category) {
       throw new NotFoundException(`Category #${id} not found`);
     }
     return category;
   }
 
-  create(data: CreateBrandDto) {
+  async create(data: CreateBrandDto) {
+    const catName = data.name;
+    const categoryExists = await this._brandRepository.findOne({
+      where: { name: catName },
+    });
+    if (categoryExists) {
+      throw new NotFoundException(
+        `Category with name ${catName} already exists, the ID is ${categoryExists.id}`,
+      );
+    }
     const newCategory = this._brandRepository.create(data);
     return this._brandRepository.save(newCategory);
   }
