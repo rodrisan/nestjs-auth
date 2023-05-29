@@ -15,6 +15,6 @@ export class User extends RootEntity {
   role: string;
 
   @OneToOne(() => Customer, (customer) => customer.user, { nullable: true })
-  @JoinColumn() // Should be defined on one side only.
+  @JoinColumn({ name: 'customer_id' }) // Should be defined on one side only.
   customer: Customer;
 }
