@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { RootEntity } from '../../../common/root-entity';
+import { Brand } from './brand.entity';
 
 @Entity({ name: 'products' })
 export class Product extends RootEntity {
@@ -18,4 +19,8 @@ export class Product extends RootEntity {
 
   @Column({ type: 'varchar' })
   image: string;
+
+  @ManyToOne(() => Brand, (brand) => brand.products)
+  @JoinColumn({ name: 'brand_id' }) // Should be defined on one side only.
+  brand: Brand;
 }
