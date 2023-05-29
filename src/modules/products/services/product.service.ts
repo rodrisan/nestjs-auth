@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Between, FindOptionsWhere, In, Repository } from 'typeorm';
 
-import { Product } from 'src/modules/products/entities/product.entity';
+import { Product } from 'src/modules/database/entities/products/product.entity';
 import {
   CreateProductDto,
   FilterProductsDto,
@@ -10,8 +10,8 @@ import {
 } from 'src/modules/products/dtos/product.dto';
 import { RootEntity } from './../../../common/root-entity';
 import { BrandsService } from './brands.service';
-import { Category } from '../entities/category.entity';
-import { Brand } from '../entities/brand.entity';
+import { Category } from '../../database/entities/products/category.entity';
+import { Brand } from '../../database/entities/products/brand.entity';
 
 @Injectable()
 export class ProductService {

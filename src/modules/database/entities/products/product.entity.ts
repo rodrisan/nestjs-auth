@@ -8,7 +8,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-import { RootEntity } from '../../../common/root-entity';
+import { RootEntity } from '../../../../common/root-entity';
 import { Brand } from './brand.entity';
 import { Category } from './category.entity';
 

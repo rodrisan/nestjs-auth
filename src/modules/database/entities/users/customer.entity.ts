@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, OneToOne } from 'typeorm';
 
-import { RootEntity } from '../../../common/root-entity';
+import { RootEntity } from '../../../../common/root-entity';
 import { User } from './user.entity';
 import { Order } from './order.entity';
 @Entity({ name: 'customers' })

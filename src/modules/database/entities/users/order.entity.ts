@@ -1,7 +1,7 @@
 import { Entity, ManyToOne, OneToMany } from 'typeorm';
 import { Exclude, Expose } from 'class-transformer';
 
-import { RootEntity } from '../../../common/root-entity';
+import { RootEntity } from '../../../../common/root-entity';
 import { Customer } from './customer.entity';
 import { OrderItem } from './order-item.entity';
 

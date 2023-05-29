@@ -1,6 +1,6 @@
 import { ManyToOne, Entity, OneToMany } from 'typeorm';
-import { Customer } from './../../users/entities/customer.entity';
-import { OrderItem } from '../../users/entities/order-item.entity';
+import { Customer } from '../../database/entities/users/customer.entity';
+import { OrderItem } from '../../database/entities/users/order-item.entity';
 import { RootEntity } from './../../../common/root-entity';
 
 export class Order extends RootEntity {
