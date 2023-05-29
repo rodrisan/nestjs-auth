@@ -9,9 +9,11 @@ import {
   IsUUID,
   IsUrl,
   Min,
+  ValidateIf,
 } from 'class-validator';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { RootEntity } from './../../../common/root-entity';
+import { GeneralFilterDto } from 'src/common/dtos/general-filter.dto';
 
 export class CreateProductDto {
   @IsNotEmpty()
@@ -54,12 +56,12 @@ export class CreateProductDto {
 
 export class UpdateProductDto extends PartialType(CreateProductDto) {}
 
-export class FilterProductsDto {
+export class FilterProductsDto extends GeneralFilterDto {
   @IsOptional()
   @IsPositive()
-  limit: number;
+  minPrice: number;
 
-  @IsOptional()
-  @Min(0)
-  offset: number;
+  @IsPositive()
+  @ValidateIf((item) => item.minPrice)
+  maxPrice: number;
 }
