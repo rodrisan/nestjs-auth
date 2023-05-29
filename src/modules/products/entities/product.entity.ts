@@ -4,9 +4,6 @@ import { RootEntity } from '../../../common/root-entity';
 
 @Entity({ name: 'products' })
 export class Product extends RootEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
-
   @Column({ type: 'varchar', length: 255 })
   name: string;
 
