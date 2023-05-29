@@ -28,7 +28,7 @@ import config from './common/config';
         MYSQL_USER: Joi.string().required(),
         MYSQL_PASS: Joi.string().required(),
         POSTGRES_HOST: Joi.string().required(),
-        POSTGRES_NAME: Joi.string().required(),
+        POSTGRES_DB_NAME: Joi.string().required(),
         POSTGRES_PORT: Joi.number().required(),
         POSTGRES_USER: Joi.string().required(),
         POSTGRES_PASS: Joi.string().required(),

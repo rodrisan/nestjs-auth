@@ -11,7 +11,7 @@ export default registerAs('config', () => {
     },
     postgres: {
       dbHost: process.env.POSTGRES_HOST,
-      dbName: process.env.POSTGRES_NAME,
+      dbName: process.env.POSTGRES_DB_NAME,
       dbPort: parseInt(process.env.POSTGRES_PORT),
       dbUser: process.env.POSTGRES_USER,
       dbPass: process.env.POSTGRES_PASS,
