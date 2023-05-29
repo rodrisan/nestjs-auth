@@ -33,6 +33,16 @@ export class Product extends RootEntity {
   brand: Brand;
 
   @ManyToMany(() => Category, (category) => category.products)
-  @JoinTable()
+  @JoinTable({
+    name: 'products_categories_categories',
+    joinColumn: {
+      name: 'products',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'categories',
+      referencedColumnName: 'id',
+    },
+  })
   categories: Category[];
 }
