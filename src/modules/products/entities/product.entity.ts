@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  Index,
   JoinColumn,
   JoinTable,
   ManyToMany,
@@ -12,6 +13,7 @@ import { Brand } from './brand.entity';
 import { Category } from './category.entity';
 
 @Entity({ name: 'products' })
+@Index(['price', 'stock'])
 export class Product extends RootEntity {
   @Column({ type: 'varchar', length: 255 })
   name: string;
@@ -19,6 +21,7 @@ export class Product extends RootEntity {
   @Column({ type: 'text' })
   description: string;
 
+  @Index()
   @Column({ type: 'int' })
   price: number;
 
