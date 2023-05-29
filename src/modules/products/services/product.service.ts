@@ -92,4 +92,43 @@ export class ProductService {
     }
     return this._productRepository.delete(id);
   }
+
+  async addProductCategory(
+    productId: RootEntity['id'],
+    categoryId: RootEntity['id'],
+  ) {
+    const product = await this._productRepository.findOne({
+      where: { id: productId },
+      relations: ['brand', 'categories'],
+    });
+    const category = await this._categoryRepository.findOneBy({
+      id: categoryId,
+    });
+    if (!category) {
+      throw new NotFoundException(`Category #${categoryId} not found`);
+    }
+    const exists = product.categories.some(
+      (element) => element.id === categoryId,
+    );
+    if (!exists) {
+      product.categories.push(category);
+    }
+    return this._productRepository.save(product);
+  }
+
+  async removeProductCategory(
+    productId: RootEntity['id'],
+    categoryId: RootEntity['id'],
+  ) {
+    const product = await this._productRepository.findOne({
+      where: { id: productId },
+      relations: ['brand', 'categories'],
+    });
+    if (product.categories) {
+      product.categories = product.categories.filter(
+        (catItem) => catItem.id !== categoryId,
+      );
+    }
+    return this._productRepository.save(product);
+  }
 }

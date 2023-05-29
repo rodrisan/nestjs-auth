@@ -65,9 +65,27 @@ export class ProductsController {
     return this._productService.update(id, payload);
   }
 
+  @ApiOperation({ summary: 'Add an existing Category to a Product' })
+  @Put(':id/category/:categoryId')
+  updateCategory(
+    @Param('id', ParseUUIDPipe) id: RootEntity['id'],
+    @Param('categoryId', ParseUUIDPipe) categoryId: RootEntity['id'],
+  ) {
+    return this._productService.addProductCategory(id, categoryId);
+  }
+
   @ApiOperation({ summary: 'Delete an existing Product' })
   @Delete(':id')
   delete(@Param('id', ParseUUIDPipe) id: RootEntity['id']) {
     return this._productService.remove(id);
+  }
+
+  @ApiOperation({ summary: 'Delete an existing Category to a Product' })
+  @Delete(':id/category/:categoryId')
+  deleteCategory(
+    @Param('id', ParseUUIDPipe) id: RootEntity['id'],
+    @Param('categoryId', ParseUUIDPipe) categoryId: RootEntity['id'],
+  ) {
+    return this._productService.removeProductCategory(id, categoryId);
   }
 }
