@@ -13,7 +13,7 @@ import { Product } from './entities/product.entity';
 
 @Module({
   controllers: [ProductsController, CategoriesController, BrandsController],
-  exports: [ProductService, CategoriesService, BrandsService],
+  exports: [ProductService, TypeOrmModule],
   imports: [TypeOrmModule.forFeature([Product, Category, Brand])], // In order to use MySQL, pass the second param 'mysqlDB'.
   providers: [ProductService, BrandsService, CategoriesService],
 })
