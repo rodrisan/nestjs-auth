@@ -36,7 +36,7 @@ client.connect();
           username: dbUser,
           password: dbPass,
           database: dbName,
-          synchronize: true,
+          synchronize: false,
           autoLoadEntities: true,
         };
       },
