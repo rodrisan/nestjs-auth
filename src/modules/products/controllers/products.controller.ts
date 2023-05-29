@@ -9,11 +9,12 @@ import {
   Query,
   HttpStatus,
   HttpCode,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { ProductService } from 'src/modules/products/services/product.service';
-import { ParseIntPipe } from 'src/common/parse-int.pipe';
+// import { ParseIntPipe } from 'src/common/parse-int.pipe'; // Custom created.
 import {
   CreateProductDto,
   UpdateProductDto,
@@ -34,7 +35,7 @@ export class ProductsController {
   @ApiOperation({ summary: 'Get a Product' })
   @Get(':id')
   @HttpCode(HttpStatus.ACCEPTED)
-  getOne(@Param('id', ParseIntPipe) id: RootEntity['id']) {
+  getOne(@Param('id', ParseUUIDPipe) id: RootEntity['id']) {
     // response.status(200).send({ message: `Product ${id}` });
     return this._productService.findOne(id);
   }
@@ -58,7 +59,7 @@ export class ProductsController {
   @ApiOperation({ summary: 'Delete an existing Product' })
   @Put(':id')
   update(
-    @Param('id', ParseIntPipe) id: RootEntity['id'],
+    @Param('id', ParseUUIDPipe) id: RootEntity['id'],
     @Body() payload: UpdateProductDto,
   ) {
     return this._productService.update(id, payload);
@@ -66,7 +67,7 @@ export class ProductsController {
 
   @ApiOperation({ summary: 'Delete an existing Product' })
   @Delete(':id')
-  delete(@Param('id', ParseIntPipe) id: RootEntity['id']) {
+  delete(@Param('id', ParseUUIDPipe) id: RootEntity['id']) {
     return this._productService.remove(id);
   }
 }

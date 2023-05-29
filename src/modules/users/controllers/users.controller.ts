@@ -6,7 +6,7 @@ import {
   Body,
   Put,
   Delete,
-  ParseIntPipe,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
@@ -51,7 +51,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Update an existing Customer' })
   @Put(':id')
   update(
-    @Param('id', ParseIntPipe) id: RootEntity['id'],
+    @Param('id', ParseUUIDPipe) id: RootEntity['id'],
     @Body() payload: UpdateUserDto,
   ) {
     return this.usersService.update(id, payload);
@@ -59,7 +59,7 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Delete an existing Customer' })
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: RootEntity['id']) {
+  remove(@Param('id', ParseUUIDPipe) id: RootEntity['id']) {
     return this.usersService.remove(id);
   }
 }

@@ -6,7 +6,7 @@ import {
   Body,
   Put,
   Delete,
-  ParseIntPipe,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
@@ -27,7 +27,7 @@ export class CategoriesController {
 
   @ApiOperation({ summary: 'Get a Category by ID' })
   @Get(':id')
-  get(@Param('id', ParseIntPipe) id: RootEntity['id']) {
+  get(@Param('id', ParseUUIDPipe) id: RootEntity['id']) {
     return this.categoriesService.findOne(id);
   }
 
@@ -40,7 +40,7 @@ export class CategoriesController {
   @ApiOperation({ summary: 'Update an existing Category' })
   @Put(':id')
   update(
-    @Param('id', ParseIntPipe) id: RootEntity['id'],
+    @Param('id', ParseUUIDPipe) id: RootEntity['id'],
     @Body() payload: UpdateCategoryDto,
   ) {
     return this.categoriesService.update(id, payload);
@@ -48,7 +48,7 @@ export class CategoriesController {
 
   @ApiOperation({ summary: 'Delete an existing Category' })
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: RootEntity['id']) {
+  remove(@Param('id', ParseUUIDPipe) id: RootEntity['id']) {
     return this.categoriesService.remove(id);
   }
 }
