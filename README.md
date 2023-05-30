@@ -1,8 +1,6 @@
 # Nest Modular
 
-[Curso de NestJS: Persistencia de Datos con TypeORM](https://platzi.com/cursos/nestjs-typeorm/)
-
-[Circular references](./docs/circular-references.md)
+[Curso de NestJS: Autenticación con Passport y JWT](https://platzi.com/cursos/nestjs-auth/)
 
 <hr>
 
