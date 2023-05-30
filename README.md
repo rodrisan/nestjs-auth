@@ -1,6 +1,8 @@
 # Nest Modular
 
-[Curso de NestJS: Programación Modular, Documentación con Swagger y Deploy](https://platzi.com/cursos/nestjs-modular/)
+[Curso de NestJS: Persistencia de Datos con TypeORM](https://platzi.com/cursos/nestjs-typeorm/)
+
+[Circular references](./docs/circular-references.md)
 
 <hr>
 

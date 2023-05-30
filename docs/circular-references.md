@@ -23,6 +23,7 @@ De esta manera cada módulo puede usar el Repository Pattern y hacer la consulta
 
 Una de las formas que tiene NestJS para resolver la referencia circular es tener una referencia directa por ejemplo, si AService y BService dependen el uno del otro, ambos lados de la relación pueden usar __@Inject ()__ y la utilidad __forwardRef ()__ para resolver la dependencia circular, ejemplo:
 
+```ts
 @Injectable()
 export class AService {
   constructor(
@@ -30,8 +31,11 @@ export class AService {
     private service: BService ,
   ) {}
 }
+```
+
 De la misma manera en el otro servicio.
 
+```ts
 @Injectable()
 export class BService {
   constructor(
@@ -39,13 +43,20 @@ export class BService {
     private service: AService ,
   ) {}
 }
+```
+
 También puedes aplicar lo mismo entre módulos
 
+```ts
 @Module({
   imports: [forwardRef(() => AModule)],
 })
 export class BModule{}
+```
+
+```ts
 @Module({
   imports: [forwardRef(() => BModule)],
 })
 export class AModule{}
+```
