@@ -8,15 +8,15 @@ import config from '../../common/config';
 const API_KEY = '123456789';
 const API_KEY_PROD = 'PROD123456789';
 
-const client = new Client({
-  user: 'root',
-  host: 'localhost',
-  database: 'postgres',
-  port: 5432,
-  password: 'toor',
-});
+// const client = new Client({
+//   user: 'root',
+//   host: 'localhost',
+//   database: 'postgres',
+//   port: 5432,
+//   password: 'toor',
+// });
 
-client.connect();
+// client.connect();
 // client.query('SELECT * FROM tasks', (err, res) => {
 //   console.error(err);
 //   console.log(res.rows);
