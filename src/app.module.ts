@@ -13,6 +13,7 @@ import { lastValueFrom } from 'rxjs';
 import { DatabaseModule } from './modules/database/database.module';
 import { environments } from './common/environments';
 import { AuthModule } from './modules/auth/auth.module';
+import { AuthService } from './modules/auth/services/auth.service';
 import config from './common/config';
 
 @Module({
@@ -64,6 +65,7 @@ import config from './common/config';
       },
       inject: [HttpService],
     },
+    AuthService,
   ],
 })
 export class AppModule {}
