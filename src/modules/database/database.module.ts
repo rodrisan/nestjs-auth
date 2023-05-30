@@ -40,23 +40,23 @@ client.connect();
       },
       inject: [config.KEY],
     }),
-    TypeOrmModule.forRootAsync({
-      name: 'mysqlDB',
-      useFactory: (configService: ConfigType<typeof config>) => {
-        const { dbName, dbUser, dbPass, dbHost, dbPort } = configService.mysql;
-        return {
-          type: 'mysql',
-          host: dbHost,
-          port: dbPort,
-          username: dbUser,
-          password: dbPass,
-          database: dbName,
-          synchronize: true,
-          autoLoadEntities: true,
-        };
-      },
-      inject: [config.KEY],
-    }),
+    // TypeOrmModule.forRootAsync({
+    //   name: 'mysqlDB',
+    //   useFactory: (configService: ConfigType<typeof config>) => {
+    //     const { dbName, dbUser, dbPass, dbHost, dbPort } = configService.mysql;
+    //     return {
+    //       type: 'mysql',
+    //       host: dbHost,
+    //       port: dbPort,
+    //       username: dbUser,
+    //       password: dbPass,
+    //       database: dbName,
+    //       synchronize: true,
+    //       autoLoadEntities: true,
+    //     };
+    //   },
+    //   inject: [config.KEY],
+    // }),
   ],
   providers: [
     {
