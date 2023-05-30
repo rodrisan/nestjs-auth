@@ -22,7 +22,7 @@ import config from './common/config';
       load: [config],
       isGlobal: true,
       validationSchema: Joi.object({
-        API_KEY: Joi.number().required(),
+        API_KEY: Joi.string().required(),
         MYSQL_HOST: Joi.string().required(),
         MYSQL_DB_NAME: Joi.string().required(),
         MYSQL_PORT: Joi.number().required(),
