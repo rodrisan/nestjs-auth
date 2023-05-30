@@ -10,8 +10,10 @@ import {
   HttpStatus,
   HttpCode,
   ParseUUIDPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 import { ProductService } from 'src/modules/products/services/product.service';
 // import { ParseIntPipe } from 'src/common/parse-int.pipe'; // Custom created.
@@ -22,6 +24,7 @@ import {
 } from 'src/modules/products/dtos/product.dto';
 import { RootEntity } from './../../../common/root-entity';
 
+@UseGuards(AuthGuard('jwt'))
 @ApiTags('Products')
 @Controller('products')
 export class ProductsController {
