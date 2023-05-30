@@ -78,6 +78,6 @@ export class UsersService {
   }
 
   findByEmail(email: string) {
-    return this._userRepository.findOneByOrFail({ email });
+    return this._userRepository.findOneBy({ email });
   }
 }
