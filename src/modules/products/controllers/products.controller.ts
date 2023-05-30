@@ -23,8 +23,10 @@ import {
   FilterProductsDto,
 } from 'src/modules/products/dtos/product.dto';
 import { RootEntity } from './../../../common/root-entity';
+import { JwtAuthGuard } from '../../../modules/auth/guards/jwt-auth.guard';
+import { Public } from '../../..//modules/auth/decorators/public.decorator';
 
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(JwtAuthGuard)
 @ApiTags('Products')
 @Controller('products')
 export class ProductsController {
@@ -36,6 +38,7 @@ export class ProductsController {
     return { message: `The filter` };
   }
 
+  @Public()
   @ApiOperation({ summary: 'Get a Product' })
   @Get(':id')
   @HttpCode(HttpStatus.ACCEPTED)
@@ -44,6 +47,7 @@ export class ProductsController {
     return this._productService.findOne(id);
   }
 
+  @Public()
   @ApiOperation({ summary: 'List of Products' })
   @Get()
   get(@Query() params: FilterProductsDto, @Query('brand') brand: string) {
