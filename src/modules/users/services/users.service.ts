@@ -6,10 +6,11 @@ import * as bcrypt from 'bcrypt';
 
 import { User } from '../../database/entities/users/user.entity';
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
-import { ProductService } from 'src/modules/products/services/product.service';
+import { ProductService } from '../../../modules/products/services/product.service';
 import { CustomersService } from './customers.service';
 import { RootEntity } from './../../../common/root-entity';
 import { GeneralFilterDto } from '../../../common/dtos/general-filter.dto';
+import { Order } from '../../../modules/orders/entities/order.entity';
 
 @Injectable()
 export class UsersService {
@@ -17,6 +18,7 @@ export class UsersService {
     private _productService: ProductService,
     private _configService: ConfigService,
     @InjectRepository(User) private _userRepository: Repository<User>,
+    @InjectRepository(Order) private _orderRepository: Repository<Order>,
     private _customerService: CustomersService,
   ) {}
 

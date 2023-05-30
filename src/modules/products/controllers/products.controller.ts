@@ -24,9 +24,12 @@ import {
 } from 'src/modules/products/dtos/product.dto';
 import { RootEntity } from './../../../common/root-entity';
 import { JwtAuthGuard } from '../../../modules/auth/guards/jwt-auth.guard';
-import { Public } from '../../..//modules/auth/decorators/public.decorator';
+import { Public } from '../../../modules/auth/decorators/public.decorator';
+import { Roles } from '../../../modules/auth/decorators/roles.decorator';
+import { Role } from '../../../modules/auth/models/roles.model';
+import { RolesGuard } from 'src/modules/auth/guards/roles.guard';
 
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags('Products')
 @Controller('products')
 export class ProductsController {
@@ -54,6 +57,7 @@ export class ProductsController {
     return this._productService.findAll(params);
   }
 
+  @Roles(Role.ADMIN)
   @ApiOperation({ summary: 'Create a new Product' })
   @Post()
   create(@Body() payload: CreateProductDto) {
