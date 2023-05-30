@@ -18,5 +18,6 @@ export default registerAs('config', () => {
     },
     allowCors: process.env.ALLOW_CORS,
     apiKey: process.env.API_KEY,
+    jwtSecret: process.env.JWT_SECRET,
   };
 });

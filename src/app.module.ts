@@ -15,6 +15,7 @@ import { environments } from './common/environments';
 import { AuthModule } from './modules/auth/auth.module';
 import { AuthService } from './modules/auth/services/auth.service';
 import config from './common/config';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import config from './common/config';
         POSTGRES_USER: Joi.string().required(),
         POSTGRES_PASS: Joi.string().required(),
         ALLOW_CORS: Joi.string().optional(),
+        JWT_SECRET: Joi.string().required(),
       }),
     }),
     UsersModule,
@@ -66,6 +68,7 @@ import config from './common/config';
       inject: [HttpService],
     },
     AuthService,
+    JwtService,
   ],
 })
 export class AppModule {}
