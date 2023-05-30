@@ -10,8 +10,10 @@ import {
   HttpStatus,
   HttpCode,
   ParseUUIDPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 import { ProductService } from 'src/modules/products/services/product.service';
 // import { ParseIntPipe } from 'src/common/parse-int.pipe'; // Custom created.
@@ -21,7 +23,13 @@ import {
   FilterProductsDto,
 } from 'src/modules/products/dtos/product.dto';
 import { RootEntity } from './../../../common/root-entity';
+import { JwtAuthGuard } from '../../../modules/auth/guards/jwt-auth.guard';
+import { Public } from '../../../modules/auth/decorators/public.decorator';
+import { Roles } from '../../../modules/auth/decorators/roles.decorator';
+import { Role } from '../../../modules/auth/models/roles.model';
+import { RolesGuard } from 'src/modules/auth/guards/roles.guard';
 
+@UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags('Products')
 @Controller('products')
 export class ProductsController {
@@ -33,6 +41,7 @@ export class ProductsController {
     return { message: `The filter` };
   }
 
+  @Public()
   @ApiOperation({ summary: 'Get a Product' })
   @Get(':id')
   @HttpCode(HttpStatus.ACCEPTED)
@@ -41,12 +50,14 @@ export class ProductsController {
     return this._productService.findOne(id);
   }
 
+  @Public()
   @ApiOperation({ summary: 'List of Products' })
   @Get()
   get(@Query() params: FilterProductsDto, @Query('brand') brand: string) {
     return this._productService.findAll(params);
   }
 
+  @Roles(Role.ADMIN)
   @ApiOperation({ summary: 'Create a new Product' })
   @Post()
   create(@Body() payload: CreateProductDto) {

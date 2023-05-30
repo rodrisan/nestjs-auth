@@ -27,17 +27,15 @@ client.connect();
   imports: [
     TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigType<typeof config>) => {
-        const { dbName, dbUser, dbPass, dbHost, dbPort } =
-          configService.postgres;
+        // const { dbName, dbUser, dbPass, dbHost, dbPort } = configService.postgres;
         return {
           type: 'postgres',
-          host: dbHost,
-          port: dbPort,
-          username: dbUser,
-          password: dbPass,
-          database: dbName,
+          url: configService.postgresUrl,
           synchronize: false,
           autoLoadEntities: true,
+          ssl: {
+            rejectUnauthorized: false,
+          },
         };
       },
       inject: [config.KEY],
@@ -68,14 +66,12 @@ client.connect();
     {
       provide: 'PG',
       useFactory: (configService: ConfigType<typeof config>) => {
-        const { dbUser, dbHost, dbName, dbPass, dbPort } =
-          configService.postgres;
+        // const { dbUser, dbHost, dbName, dbPass, dbPort } = configService.postgres;
         const client = new Client({
-          user: dbUser,
-          host: dbHost,
-          database: dbName,
-          password: dbPass,
-          port: dbPort,
+          connectionString: configService.postgresUrl,
+          ssl: {
+            rejectUnauthorized: false,
+          },
         });
         client.connect();
         return client;

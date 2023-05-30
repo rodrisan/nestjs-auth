@@ -1,4 +1,5 @@
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { Exclude } from 'class-transformer';
 
 import { RootEntity } from '../../../../common/root-entity';
 import { Customer } from './customer.entity';
@@ -8,6 +9,7 @@ export class User extends RootEntity {
   @Column({ type: 'varchar', length: 255 })
   email: string;
 
+  @Exclude()
   @Column({ type: 'varchar', length: 255 })
   password: string; // @todo: Should be encrypted.
 

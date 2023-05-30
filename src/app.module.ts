@@ -12,7 +12,10 @@ import { todosApi } from './common/constants';
 import { lastValueFrom } from 'rxjs';
 import { DatabaseModule } from './modules/database/database.module';
 import { environments } from './common/environments';
+import { AuthModule } from './modules/auth/auth.module';
+import { AuthService } from './modules/auth/services/auth.service';
 import config from './common/config';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -21,18 +24,21 @@ import config from './common/config';
       load: [config],
       isGlobal: true,
       validationSchema: Joi.object({
-        API_KEY: Joi.number().required(),
+        API_KEY: Joi.string().required(),
         MYSQL_HOST: Joi.string().required(),
         MYSQL_DB_NAME: Joi.string().required(),
         MYSQL_PORT: Joi.number().required(),
         MYSQL_USER: Joi.string().required(),
         MYSQL_PASS: Joi.string().required(),
+        MYSQL_DATABASE_URL: Joi.string().required(),
         POSTGRES_HOST: Joi.string().required(),
         POSTGRES_DB_NAME: Joi.string().required(),
         POSTGRES_PORT: Joi.number().required(),
         POSTGRES_USER: Joi.string().required(),
         POSTGRES_PASS: Joi.string().required(),
+        POSTGRES_DATABASE_URL: Joi.string().required(),
         ALLOW_CORS: Joi.string().optional(),
+        JWT_SECRET: Joi.string().required(),
       }),
     }),
     UsersModule,
@@ -40,6 +46,7 @@ import config from './common/config';
     OrdersModule,
     HttpModule,
     DatabaseModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [
@@ -62,6 +69,8 @@ import config from './common/config';
       },
       inject: [HttpService],
     },
+    AuthService,
+    JwtService,
   ],
 })
 export class AppModule {}

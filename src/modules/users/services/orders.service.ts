@@ -7,6 +7,7 @@ import { Customer } from '../../database/entities/users/customer.entity';
 import { CreateOrderDto, UpdateOrderDto } from './../dtos/order.dto';
 import { RootEntity } from 'src/common/root-entity';
 import { GeneralFilterDto } from '../../../common/dtos/general-filter.dto';
+import { User } from 'src/modules/database/entities/users/user.entity';
 
 @Injectable()
 export class OrdersService {
@@ -14,6 +15,7 @@ export class OrdersService {
     @InjectRepository(Order) private _orderRepository: Repository<Order>,
     @InjectRepository(Customer)
     private _customerRepository: Repository<Customer>,
+    @InjectRepository(User) private _userRepository: Repository<User>,
   ) {}
 
   findAll(filters?: GeneralFilterDto) {
@@ -59,5 +61,15 @@ export class OrdersService {
 
   remove(id: RootEntity['id']) {
     return this._orderRepository.delete(id);
+  }
+
+  async ordersByCustomer(userId: RootEntity['id']) {
+    const customer = (await this._userRepository.findOneBy({ id: userId }))
+      .customer;
+
+    return await this._orderRepository.find({
+      where: { customer },
+      relations: ['items', 'items.product'],
+    });
   }
 }
