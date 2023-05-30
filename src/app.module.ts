@@ -12,6 +12,7 @@ import { todosApi } from './common/constants';
 import { lastValueFrom } from 'rxjs';
 import { DatabaseModule } from './modules/database/database.module';
 import { environments } from './common/environments';
+import { AuthModule } from './modules/auth/auth.module';
 import config from './common/config';
 
 @Module({
@@ -40,6 +41,7 @@ import config from './common/config';
     OrdersModule,
     HttpModule,
     DatabaseModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [

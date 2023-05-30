@@ -1,7 +1,8 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { AppService } from './app.service';
+import { ApiKeyGuard } from './modules/auth/guards/api-key.guard';
 
 ApiTags('App');
 @Controller()
@@ -16,5 +17,11 @@ export class AppController {
   @Get('tasks')
   tasks() {
     return this.appService.getTasks();
+  }
+
+  @UseGuards(ApiKeyGuard)
+  @Get('test-guard')
+  testGuard() {
+    return 'Test guard';
   }
 }
