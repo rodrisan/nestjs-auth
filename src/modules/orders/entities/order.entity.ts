@@ -1,4 +1,4 @@
-import { ManyToOne, Entity, OneToMany } from 'typeorm';
+import { ManyToOne, OneToMany } from 'typeorm';
 import { Customer } from '../../database/entities/users/customer.entity';
 import { OrderItem } from '../../database/entities/users/order-item.entity';
 import { RootEntity } from './../../../common/root-entity';

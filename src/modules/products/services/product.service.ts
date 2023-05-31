@@ -9,7 +9,6 @@ import {
   UpdateProductDto,
 } from 'src/modules/products/dtos/product.dto';
 import { RootEntity } from './../../../common/root-entity';
-import { BrandsService } from './brands.service';
 import { Category } from '../../database/entities/products/category.entity';
 import { Brand } from '../../database/entities/products/brand.entity';
 

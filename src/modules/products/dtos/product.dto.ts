@@ -8,7 +8,6 @@ import {
   IsString,
   IsUUID,
   IsUrl,
-  Min,
   ValidateIf,
 } from 'class-validator';
 import { ApiProperty, PartialType } from '@nestjs/swagger';

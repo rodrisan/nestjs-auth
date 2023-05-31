@@ -13,7 +13,6 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
 
 import { ProductService } from 'src/modules/products/services/product.service';
 // import { ParseIntPipe } from 'src/common/parse-int.pipe'; // Custom created.
@@ -53,7 +52,7 @@ export class ProductsController {
   @Public()
   @ApiOperation({ summary: 'List of Products' })
   @Get()
-  get(@Query() params: FilterProductsDto, @Query('brand') brand: string) {
+  get(@Query() params: FilterProductsDto) {
     return this._productService.findAll(params);
   }
 
