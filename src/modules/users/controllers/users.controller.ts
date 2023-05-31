@@ -8,6 +8,7 @@ import {
   Delete,
   ParseUUIDPipe,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
@@ -15,8 +16,13 @@ import { UsersService } from '../services/users.service';
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
 import { RootEntity } from './../../../common/root-entity';
 import { GeneralFilterDto } from '../../../common/dtos/general-filter.dto';
+import { JwtAuthGuard } from '../../../modules/auth/guards/jwt-auth.guard';
+import { Roles } from '../../../modules/auth/decorators/roles.decorator';
+import { Role } from '../../../modules/auth/models/roles.model';
+import { RolesGuard } from '../../../modules/auth/guards/roles.guard';
 
-ApiTags('Users');
+@UseGuards(JwtAuthGuard, RolesGuard)
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
@@ -44,12 +50,14 @@ export class UsersController {
     return this.usersService.getOrdersByUser(id);
   }
 
+  @Roles(Role.ADMIN)
   @ApiOperation({ summary: 'Create a new User' })
   @Post()
   create(@Body() payload: CreateUserDto) {
     return this.usersService.create(payload);
   }
 
+  @Roles(Role.ADMIN)
   @ApiOperation({ summary: 'Update an existing Customer' })
   @Put(':id')
   update(
@@ -59,6 +67,7 @@ export class UsersController {
     return this.usersService.update(id, payload);
   }
 
+  @Roles(Role.ADMIN)
   @ApiOperation({ summary: 'Delete an existing Customer' })
   @Delete(':id')
   remove(@Param('id', ParseUUIDPipe) id: RootEntity['id']) {
